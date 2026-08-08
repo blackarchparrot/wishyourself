@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Archivo:ital,wght@0,100..900;1,100..900&family=Bilbo+Swash+Caps&family=Inter:opsz,wght@14..32,500&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  touch-action: none;
+}
+
+body {
+  overflow: hidden;
+  display: flex;
+  font-family: "Pacifico", sans-serif;
+  background: #21071e;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+/* =========================================
+   Setup Form Overlay Styles
+   ========================================= */
+.setup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 3, 14, 0.93);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.setup-box {
+  background: rgba(33, 7, 30, 0.95);
+  border: 2px solid rgba(255, 105, 180, 0.4);
+  box-shadow: 0 0 35px rgba(255, 105, 180, 0.5);
+  border-radius: 20px;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  color: #fff;
+  text-align: center;
+}
+
+.setup-box h2 {
+  font-family: 'Dancing Script', cursive;
+  color: #ffb6c1;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px #ff69b4;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  color: #ffe4e1;
+}
+
+.input-group input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 182, 193, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-group input[type="file"] {
+  width: 100%;
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+#file-count-label {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: #ff69b4;
+}
+
+#generate-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  border: none;
+  color: white;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+  transition: all 0.3s ease;
+}
+
+#generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 20, 147, 0.7);
+}
+
+/* =========================================
+   3D Carousel & Main Scene Styles
+   ========================================= */
+#drag-container, #spin-container {
+  position: relative;
+  display: flex;
+  margin: auto;
+  transform-style: preserve-3d;
+  transform: rotateX(-10deg);
+  z-index: 100;
+}
+
+#drag-container img, #drag-container video {
+  transform-style: preserve-3d;
+  position: absolute;
+  left: 0;
+  object-fit: cover;
+  width: 86px;
+  height: 124px;
+  background-position: center;
+  background-position-y: 93px;
+  background-size: cover;
+  top: 0;
+  line-height: 200px;
+  font-size: 50px;
+  text-align: center;
+  box-shadow: 0 0 8px #fff;
+  border: 4px solid #fff;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  animation: delayShadow 1s forwards;
+  animation-delay: 2s;
+}
+
+@keyframes delayShadow {
+  to {
+    box-shadow: rgb(0 0 0 / 0%) 1px 4px 7px, rgb(0 0 0 / 27%) 1px 3px 6px;
+  }
+}
+
+#drag-container img:hover, #drag-container video:hover {
+  box-shadow: rgba(0, 0, 0, 0.17) 1px 4px 7px, rgba(0, 0, 0, 0.24) 1px 3px 6px;
+}
+
+#drag-container p {
+  line-height: 116px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%,-50%) rotateX(90deg);
+  color: rgb(255 254 254);
+  animation: fadein ease 15s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.button {
+  width: 110px;
+  height: 110px;
+  padding: 10px;
+  background: url('./GiftBox.png') no-repeat center / contain;
+  border-radius: 20px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  position: absolute;
+  top: 13%;
+  left: 24%;
+  opacity: 0;
+  animation: showUp 1s forwards;
+  animation-delay: 2s;
+  transition: all .3s ease-in-out;
+  z-index: 101;
+}
+
+.button:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 15px #ff69b4);
+}
+
+@keyframes showUp {
+  to { opacity: 1; }
+}
+
+#ground {
+  width: 900px;
+  height: 900px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%,-50%) rotateX(90deg);
+  background: -webkit-radial-gradient(center center, farthest-side , #9993, transparent);
+}
+
+#music-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+@keyframes spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+@keyframes spinRevert {
+  from { transform: rotateY(360deg); }
+  to { transform: rotateY(0deg); }
+}
+
+#canvas {
+  background-color: transparent;
+  color: transparent;
+  margin: 0;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  width: 100vw;
+}
+
+#canva {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  overflow: hidden;
+}
+
+p {
+  font-weight: 600;
+  font-size: 4vw;
+  text-align: center;
+}
+
+@media screen and (max-width: 658px) {
+  p {
+    font-weight: 600;
+    font-size: 12vw;
+    text-align: center;
+  }
+}
+
+/* =========================================
+   Birthday Note Modal & Typing Effect CSS
+   ========================================= */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  animation: fadeInModal 0.4s ease-out;
+}
+
+.modal-content {
+  background: rgba(33, 7, 30, 0.9);
+  border: 2px solid rgba(255, 182, 193, 0.5);
+  box-shadow: 0 0 30px rgba(255, 105, 180, 0.6), inset 0 0 15px rgba(255, 192, 203, 0.2);
+  border-radius: 20px;
+  padding: 35px 25px 25px 25px;
+  width: 85%;
+  max-width: 520px;
+  text-align: center;
+  position: relative;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  transform: scale(0.8);
+  animation: popUpModal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.modal-content h2 {
+  font-family: 'Dancing Script', cursive;
+  color: #ffb6c1;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #ff69b4;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  color: #ffb6c1;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+
+.typewriter {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #ffe4e1;
+  min-height: 140px;
+  text-align: left;
+  white-space: pre-wrap;
+  border-right: 2px solid #ff69b4;
+  animation: blinkCursor 0.75s step-end infinite;
+  padding: 5px;
+}
+
+.close-card-btn {
+  margin-top: 20px;
+  padding: 10px 28px;
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  border: none;
+  color: white;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+  transition: all 0.3s ease;
+}
+
+.close-card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 20, 147, 0.7);
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popUpModal {
+  to { transform: scale(1); }
+}
+
+@keyframes blinkCursor {
+  from, to { border-color: transparent; }
+  50% { border-color: #ff69b4; }
+}
