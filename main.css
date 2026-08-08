@@ -9,7 +9,6 @@
 html,
 body {
   height: 100%;
-  touch-action: none;
 }
 
 body {
@@ -30,7 +29,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 3, 14, 0.93);
+  background: rgba(15, 3, 14, 0.95);
   backdrop-filter: blur(12px);
   z-index: 10000;
   display: flex;
@@ -49,6 +48,7 @@ body {
   max-width: 450px;
   color: #fff;
   text-align: center;
+  pointer-events: auto;
 }
 
 .setup-box h2 {
@@ -76,16 +76,25 @@ body {
   padding: 12px;
   border-radius: 10px;
   border: 1px solid rgba(255, 182, 193, 0.4);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
   font-size: 1rem;
   outline: none;
+  pointer-events: auto;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.input-group input[type="text"]:focus {
+  border-color: #ff69b4;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
 }
 
 .input-group input[type="file"] {
   width: 100%;
   color: #ccc;
   font-size: 0.85rem;
+  pointer-events: auto;
 }
 
 #file-count-label {
@@ -107,6 +116,7 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
   transition: all 0.3s ease;
+  pointer-events: auto;
 }
 
 #generate-btn:hover {
@@ -235,6 +245,7 @@ body {
   overflow: hidden;
   background-repeat: no-repeat;
   width: 100vw;
+  height: 100vh;
 }
 
 #canva {
@@ -242,6 +253,10 @@ body {
   top: 0px;
   right: 0px;
   overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
 }
 
 p {
@@ -258,10 +273,7 @@ p {
   }
 }
 
-/* =========================================
-   Birthday Note Modal & Typing Effect CSS
-   ========================================= */
-
+/* Modal CSS */
 .modal {
   display: none;
   position: fixed;
